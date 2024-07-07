@@ -91,7 +91,9 @@ Organisation.belongsToMany(User, {
 
 sequelize
   .sync({ alter: true })
-  .then(() => {})
+  .then(() => {
+    console.log("Database & tables created!");
+  })
   .catch((error) => {
     console.log("Database Sync Failed", error);
   });
