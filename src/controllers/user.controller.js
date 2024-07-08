@@ -29,12 +29,6 @@ const getUserById = async (req, res) => {
       if (!userInOrg.some((isInOrg) => isInOrg)) {
         throw new UnauthenticatedError("Access denied");
       }
-
-      console.log("userInOrg", userInOrg);
-
-      if (!userInOrg) {
-        throw new UnauthenticatedError("Access denied");
-      }
     }
 
     res.status(200).json({

@@ -15,7 +15,7 @@ describe("Auth Endpoints", () => {
     const res = await request(app).post("/api/auth/register").send({
       firstName: "Ubong",
       lastName: "Edem",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
       phone: "1234567890",
     });
@@ -30,25 +30,25 @@ describe("Auth Endpoints", () => {
     await request(app).post("/api/auth/register").send({
       firstName: "Ubong",
       lastName: "Edem",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
       phone: "1234567890",
     });
 
     const res = await request(app).post("/api/auth/login").send({
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
     });
 
     expect(res.status).toBe(200);
-    expect(res.body.data.user.email).toBe("ubongedem78@example.com");
+    expect(res.body.data.user.email).toBe("ubongedem79@example.com");
     expect(res.body.data.accessToken).toBeDefined();
-  }, 10000);
+  });
 
   it("should fail if required fields are missing", async () => {
     const res = await request(app).post("/api/auth/register").send({
       firstName: "Ubong",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
     });
 
@@ -60,7 +60,7 @@ describe("Auth Endpoints", () => {
     await request(app).post("/api/auth/register").send({
       firstName: "Ubong",
       lastName: "Edem",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
       phone: "1234567890",
     });
@@ -68,7 +68,7 @@ describe("Auth Endpoints", () => {
     const res = await request(app).post("/api/auth/register").send({
       firstName: "Ubong",
       lastName: "Smith",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
       phone: "0987654321",
     });
@@ -82,13 +82,13 @@ describe("Organisation Access", () => {
   beforeEach(async () => {
     await User.destroy({ where: {} });
     await Organisation.destroy({ where: {} });
-  }, 15000);
+  });
 
   it("should not allow users to see data from organisations they do not have access to", async () => {
     const user1 = await User.create({
       firstName: "Ubong",
       lastName: "Edem",
-      email: "ubongedem78@example.com",
+      email: "ubongedem79@example.com",
       password: "password123",
       phone: "1234567890",
     });
@@ -96,7 +96,7 @@ describe("Organisation Access", () => {
     const user2 = await User.create({
       firstName: "Ubong",
       lastName: "Edem",
-      email: "ubongedem79@example.com",
+      email: "ubongedem78@example.com",
       password: "password123",
       phone: "1234567890",
     });

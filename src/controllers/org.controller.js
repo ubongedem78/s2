@@ -116,6 +116,15 @@ const addUserToOrganisation = async (req, res) => {
       throw new NotFoundError("User not found");
     }
 
+    const userInOrg = await organisation.hasUser(user);
+    if (userInOrg) {
+      return res.status(400).json({
+        status: "Bad Request",
+        message: "User already in organisation",
+        statusCode: 400,
+      });
+    }
+
     await organisation.addUser(user);
 
     res.status(200).json({
