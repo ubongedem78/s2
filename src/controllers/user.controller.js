@@ -19,9 +19,16 @@ const getUserById = async (req, res) => {
         },
       });
 
-      const userInOrg = organisations.some((org) =>
-        org.Users.some((u) => u.userId === id)
+      const userInOrg = await Promise.all(
+        organisations.map(async (org) => {
+          const orgUsers = await org.getUsers({ where: { userId: id } });
+          return orgUsers.length > 0;
+        })
       );
+
+      if (!userInOrg.some((isInOrg) => isInOrg)) {
+        throw new UnauthenticatedError("Access denied");
+      }
 
       console.log("userInOrg", userInOrg);
 
